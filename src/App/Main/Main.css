@@ -1,0 +1,54 @@
+.main {
+  margin-right: 20px;
+  background-color: #f0f0f0;
+  height: auto;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 20px;
+  margin-top: 5px;
+}
+.recordList {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  padding: 20px;
+  justify-content: space-between;
+  cursor: pointer;
+  box-shadow: 0.5px 0.5px 2px grey;
+}
+.recordList:hover {
+  box-shadow: 0.6px 0.6px 5px grey;
+}
+.left {
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  margin-top: 16px;
+  width: 140px;
+  height: 140px;
+}
+.avatar > img {
+  max-height: 100%;
+  max-width: 100%;
+}
+.information > .name {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0px !important;
+  color: #5478d4;
+}
+.information > .address,
+.registeredDate,
+.phone {
+  font-weight: lighter;
+  font-size: 10px;
+  opacity: 60%;
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
+}
+.information > .description {
+  font-size: 14px;
+}

@@ -1,0 +1,6 @@
+.mainSideBar {
+  display: flex;
+}
+.parentSideBar {
+  width: 50vw;
+}

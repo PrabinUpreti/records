@@ -1,0 +1,26 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
+}
+.sidebar > button {
+  background-color: #f0f0f0;
+  border: none;
+  margin: 5px;
+  padding-left: 30px;
+  padding-right: 30px;
+  font-weight: lighter;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-right: 20px;
+  box-shadow: 0.5px 0.5px 2px grey;
+}
+.sidebar > button:focus {
+  background-color: #5478d4;
+  border: none;
+  color: white;
+  box-shadow: 0.5px 0.5px 2px grey;
+}
+.sidebar > button:active {
+  border: none;
+}
