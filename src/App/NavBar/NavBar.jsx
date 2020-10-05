@@ -3,7 +3,7 @@ import "./NavBar.css";
 
 export default function NavBar() {
   const initialState = 35466;
-  const [state, setstate] = useState(initialState);
+  const [state] = useState(initialState);
   return (
     <div className="nav">
       <div className="navContent">

@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Customers } from "./DatabaseServices";
 import NavBar from "./NavBar/NavBar";
 import SideBar from "./SideBar/SideBar";
-import Main from "./Main/Main";
 import "./Parent.css";
+
+//React Router//
 
 export default function Parent() {
   return (
     <div>
-      <NavBar></NavBar>
+      <NavBar />
       <div className="mainSideBar">
-        <SideBar className="parentSideBar"></SideBar>
-        <Main></Main>
+        <SideBar className="parentSideBar" />
       </div>
     </div>
   );

@@ -3,17 +3,19 @@
   flex-direction: column;
   width: 20vw;
 }
-.sidebar > button {
-  background-color: #f0f0f0;
-  border: none;
+.sidebar li {
+  /* background-color: #f0f0f0; */
   margin: 5px;
-  padding-left: 30px;
-  padding-right: 30px;
-  font-weight: lighter;
+  padding: 10px 30px;
+  font-weight: 400;
+  text-transform: uppercase;
   cursor: pointer;
   margin-left: 20px;
   margin-right: 20px;
-  box-shadow: 0.5px 0.5px 2px grey;
+  list-style-type: none;
+}
+.sidebar li a {
+  text-decoration: none;
 }
 .sidebar > button:focus {
   background-color: #5478d4;
@@ -23,4 +25,11 @@
 }
 .sidebar > button:active {
   border: none;
+}
+
+/*                RESPONSIVE                       */
+@media only screen and (max-width: 1080px) {
+  .sidebar {
+    width: 100%;
+  }
 }
