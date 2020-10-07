@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./RecordList.css";
 import { Customers } from "./../../DatabaseServices";
-import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function RecordList() {
   const [state] = useState(Customers);
@@ -11,12 +11,7 @@ export default function RecordList() {
       {state.map((value) => {
         console.log(state);
         return (
-          <Link
-            className="Linked"
-            to={`/${value.userId}`}
-            key={value.userId}
-            className="recordList"
-          >
+          <Link to={`/${value.userId}`} key={value.userId}>
             <div className="left">
               <div className="avatar">
                 <img src={value.imgurl} alt="images" />
