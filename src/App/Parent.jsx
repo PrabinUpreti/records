@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { Customers } from "./DatabaseServices";
+// import { Customers } from "./DatabaseServices";
 import NavBar from "./NavBar/NavBar";
 import SideBar from "./SideBar/SideBar";
 import "./Parent.css";

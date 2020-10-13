@@ -10,23 +10,19 @@ function AddTransaction() {
   let { id } = useParams();
   const [amt] = useState(CustomersTransaction);
   const newTransactionList = amt.filter((list) => {
-    return list.userId === id;
+    return list.transactionId == id;
   });
-  // console.log(state);
+  let tempdata = newTransactionList[0].transactionHistory 
 
   return (
     <div>
-      Addtransaction i am id
-      {newTransactionList.map((d) => {
-        {
-          Object.keys(d.transactionHistory).map((trn) => {
-            // console.log(trn);
-
-            return <h1 key={d.userId}>a</h1>;
-          });
-        }
-      })}
-      <input
+      {tempdata.map((d,index)=>{
+        return <h1 key={index}>{d.date} {d.decription} Rs.{d.amount} /- {d.status}</h1>
+          
+      })
+      
+    }
+      {/* <input
         type="text"
         onChange={(e) => setState({ name: e.target.value })}
         name=""
@@ -34,7 +30,7 @@ function AddTransaction() {
       />
       <button onClick={() => updateData.dataDispatch({ name: state.name })}>
         Click
-      </button>
+      </button> */}
     </div>
   );
 }

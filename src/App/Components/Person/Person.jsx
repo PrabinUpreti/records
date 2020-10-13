@@ -63,6 +63,7 @@ function Person() {
           rows="10"
           value={state.description}
         ></textarea>
+        <input type="file"/>
         <input value="SUBMIT" type="submit" onClick={submitForm} />
       </form>
     </>
