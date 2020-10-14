@@ -90,3 +90,16 @@ export const CustomersTransaction = [
     ],
   },
 ];
+
+var firebaseConfig = {
+  apiKey: "AIzaSyBN_cVg8NTIu9oh65X6rH0Dj9RJ_XnkRJo",
+  authDomain: "record-9b7d0.firebaseapp.com",
+  databaseURL: "https://record-9b7d0.firebaseio.com",
+  projectId: "record-9b7d0",
+  storageBucket: "record-9b7d0.appspot.com",
+  messagingSenderId: "312446697721",
+  appId: "1:312446697721:web:fc681708ea25e336eaa228",
+  measurementId: "G-Q6X0F0EGXZ"
+};
+// firebase.initializeApp(firebaseConfig);
+// firebase.analytics();
