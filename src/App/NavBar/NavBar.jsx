@@ -2,9 +2,17 @@ import React, { useState,useEffect } from "react";
 import "./NavBar.css";
 import { CustomersTransaction } from "./../DatabaseServices";
 
+import {LogOut} from './../AuthForm/myAuth'
+
+import {
+  useHistory,
+} from "react-router-dom";
+
 
 
 export default function NavBar() {
+
+  let history = useHistory()
   const UpdateTransaction =()=>{
     console.log(CustomersTransaction,didUpdate);
     CustomersTransaction.push({
@@ -47,10 +55,16 @@ export default function NavBar() {
   },[didUpdate])
   return (
     <div className="nav">
-      <input type="button" value="ADD Transaction" onClick={UpdateTransaction}/>
+      {/* <input type="button" value="ADD Transaction" onClick={UpdateTransaction}/> */}
       <div className="navContent">
         <h1>Records</h1>
         <h2 className="revinue">Rs. {debit - credit}  </h2>
+        <input type="button" value="LogOut" onClick={()=>{
+          LogOut((info)=>{console.log(info);
+          history.push("/login")
+          })
+
+        }}/>
       </div>
     </div>
   );

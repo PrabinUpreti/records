@@ -91,7 +91,7 @@ export const CustomersTransaction = [
   },
 ];
 
-var firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyBN_cVg8NTIu9oh65X6rH0Dj9RJ_XnkRJo",
   authDomain: "record-9b7d0.firebaseapp.com",
   databaseURL: "https://record-9b7d0.firebaseio.com",
