@@ -3,34 +3,46 @@ import "./SideBar.css";
 import RecordList from "../MainComponent/RecordList/RecordList";
 import AddPerson from "./../MainComponent/AddPerson/AddPerson";
 import AddTransaction from "../MainComponent/RecordList/AddTransaction/AddTransaction";
+import {ProtectedRoute} from '../../Auth/Auth';
 
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
   NavLink,
+  Route,Redirect,
+  useRouteMatch
 } from "react-router-dom";
 
 export default function SideBar() {
+  const {path,url}=useRouteMatch();
+  console.log(path,url+"person");
   return (
     <Router>
       <ul className="sidebar">
         <li>
-          <NavLink exact activeStyle={{ color: "red" }} to="/">
+          <NavLink exact activeStyle={{ color: "red" }} to={url}>
             Record List
           </NavLink>
         </li>
         <li>
-          <NavLink exact activeStyle={{ color: "red" }} to="/person">
+          <NavLink exact activeStyle={{ color: "red" }} to={`${url}person`}>
             Add Person
           </NavLink>
         </li>
       </ul>
 
       <Switch>
-        <Route path="/" exact component={RecordList} />
-        <Route path="/person" exact component={AddPerson} />
-        <Route path={`/:id`} component={AddTransaction} />
+        <ProtectedRoute exact path={path} >
+        <RecordList/>
+        </ProtectedRoute>
+        <ProtectedRoute path={`${path}person`} exact>
+          <AddPerson/>
+          </ProtectedRoute>
+        <ProtectedRoute exact path={`${path}:id`}>
+          <AddTransaction/>
+        </ProtectedRoute>
+        <Route path="*"><Redirect to ="/"></Redirect>
+      </Route>
       </Switch>
     </Router>
   );
