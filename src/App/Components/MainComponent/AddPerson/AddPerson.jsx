@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Customers } from "./../../DatabaseServices";
+import { Customers } from "../../../DatabaseServices";
 
 function Person() {
   const [state, setState] = useState({

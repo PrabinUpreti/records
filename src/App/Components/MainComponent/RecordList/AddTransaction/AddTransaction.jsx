@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
-import { CustomersTransaction } from "./../../DatabaseServices";
+import { CustomersTransaction } from "../../../../DatabaseServices";
 import { useParams } from "react-router-dom";
-import { mainDataContext } from "./../../Parent";
+import { mainDataContext } from "../../../../Parent";
 
 function AddTransaction() {
   const [state, setState] = useState({});

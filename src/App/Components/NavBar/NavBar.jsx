@@ -1,8 +1,8 @@
 import React, { useState,useEffect } from "react";
 import "./NavBar.css";
-import { CustomersTransaction } from "./../DatabaseServices";
+import { CustomersTransaction } from "./../../DatabaseServices";
 
-import {LogOut} from './../AuthForm/myAuth'
+import {LogOut} from './../../Auth/Auth'
 
 import {
   useHistory,

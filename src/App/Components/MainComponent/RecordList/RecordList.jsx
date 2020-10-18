@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./RecordList.css";
-import { Customers,CustomersTransaction } from "./../../DatabaseServices";
+import { Customers,CustomersTransaction } from "../../../DatabaseServices";
 import { Link } from "react-router-dom";
 
 export default function RecordList() {

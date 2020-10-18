@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
-import "./authForm.css"
-import {authCheck , SignUp, SignIn} from './myAuth'
+import "./Auth.css"
+import {authCheck , SignUp, SignIn} from './Auth'
 
 import {
     BrowserRouter as Router,

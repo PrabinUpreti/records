@@ -1,9 +1,9 @@
 import React, { useReducer,useEffect, useState } from "react";
-import NavBar from "./NavBar/NavBar";
-import SideBar from "./SideBar/SideBar";
-import Login from './AuthForm/Login';
+import NavBar from "./Components/NavBar/NavBar";
+import SideBar from "./Components/SideBar/SideBar";
+import Login from './Auth/Login';
 import "./Parent.css";
-import {authCheck,fb} from './AuthForm/myAuth';
+import {authCheck,fb} from './Auth/Auth';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,7 +12,6 @@ import {
   useHistory,
   useLocation
 } from "react-router-dom";
-import { render } from "@testing-library/react";
 
 //React Router//
 export const mainDataContext = React.createContext();

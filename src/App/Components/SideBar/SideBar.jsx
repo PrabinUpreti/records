@@ -1,8 +1,8 @@
 import React from "react";
 import "./SideBar.css";
-import RecordList from "../Components/RecordList/RecordList";
-import Person from "../Components/Person/Person";
-import AddTransaction from "../Components/AddTransaction/AddTransaction";
+import RecordList from "../MainComponent/RecordList/RecordList";
+import AddPerson from "./../MainComponent/AddPerson/AddPerson";
+import AddTransaction from "../MainComponent/RecordList/AddTransaction/AddTransaction";
 
 import {
   BrowserRouter as Router,
@@ -29,7 +29,7 @@ export default function SideBar() {
 
       <Switch>
         <Route path="/" exact component={RecordList} />
-        <Route path="/person" exact component={Person} />
+        <Route path="/person" exact component={AddPerson} />
         <Route path={`/:id`} component={AddTransaction} />
       </Switch>
     </Router>
