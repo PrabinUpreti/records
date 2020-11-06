@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import { CustomersTransaction } from "../../../../DatabaseServices";
 import { useParams } from "react-router-dom";
-import { mainDataContext } from "../../../../Parent";
+import { recordContext } from "../../../../Parent";
 
 function AddTransaction() {
   const [state, setState] = useState({});
-  const updateData = useContext(mainDataContext);
+  const updateData = useContext(recordContext);
   // console.log(updateData);
   let { id } = useParams();
   const [amt] = useState(CustomersTransaction);
