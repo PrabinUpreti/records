@@ -1,31 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Customers } from "../../../DatabaseServices";
+import { recordContext } from "./../../../Parent"
 
 function Person() {
+  const recordValue = useContext(recordContext)
+
   const [state, setState] = useState({
     name: "",
     address: "",
     phone: "",
     description: "",
+    date: new Date()
   });
   const addItems = (event) => {
     let id = event.target.id;
     setState({ ...state, [id]: event.target.value });
   };
   const submitForm = (e) => {
-    const newData = {
-      ...state,
-      userId: new Date().getTime().toString(),
-    };
     e.preventDefault();
-    Customers.push(newData);
+    recordValue.dispatch({ type: "add-new-customer", payload: state })
+
     setState({
       name: "",
       address: "",
       phone: "",
       description: "",
+      date: ""
     });
-    console.log(Customers, e);
   };
 
   return (
@@ -63,7 +64,7 @@ function Person() {
           rows="10"
           value={state.description}
         ></textarea>
-        <input type="file"/>
+        <input type="file" />
         <input value="SUBMIT" type="submit" onClick={submitForm} />
       </form>
     </>

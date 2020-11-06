@@ -5,7 +5,7 @@ import Login from './Auth/Login';
 import "./Parent.css";
 import { authCheck, ProtectedRoute } from './Auth/Auth';
 
-import { getInitialData, getInitialTransactionData } from './Firestore/Firestore'
+import { getInitialData, getInitialTransactionData, addNewCustomer } from './Firestore/Firestore'
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,7 +19,8 @@ import { database } from "firebase";
 export const recordContext = React.createContext();
 export const ACTION = {
   INIT: 'init',
-  INITTRANSISTOR: "init-trans"
+  INITTRANSISTOR: "init-trans",
+  ADDNEWCUSTOMER: "add-new-customer"
 
 }
 
@@ -29,6 +30,9 @@ function reducer(currentState, action) {
       return { ...currentState, customer: action.payload }
     case ACTION.INITTRANSISTOR:
       return { ...currentState }
+    case ACTION.ADDNEWCUSTOMER:
+      addNewCustomer(action.payload)
+    // console.log(action.payload);
     default:
       return currentState;
   }

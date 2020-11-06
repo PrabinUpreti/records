@@ -1,36 +1,38 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { CustomersTransaction } from "../../../../DatabaseServices";
 import { useParams } from "react-router-dom";
 import { recordContext } from "../../../../Parent";
 
 function AddTransaction() {
   const [state, setState] = useState({});
-  const updateData = useContext(recordContext);
-  // console.log(updateData);
+  const recordValue = useContext(recordContext);
   let { id } = useParams();
-  const [amt] = useState(CustomersTransaction);
-  const newTransactionList = amt.filter((list) => {
-    return list.transactionId == id;
-  });
-  let tempdata = newTransactionList[0].transactionHistory 
+
+  useEffect(() => {
+    let newList;
+    let transactionList = recordValue.state.customer.filter(d => {
+      return (d.customerId == id)
+    })
+    setState(transactionList)
+  }, [recordValue])
 
   return (
     <div>
-      {tempdata.map((d,index)=>{
-        return <h1 key={index}>{d.date} {d.decription} Rs.{d.amount} /- {d.status}</h1>
-          
-      })
-      
-    }
-      {/* <input
-        type="text"
-        onChange={(e) => setState({ name: e.target.value })}
-        name=""
-        id=""
-      />
-      <button onClick={() => updateData.dataDispatch({ name: state.name })}>
-        Click
-      </button> */}
+      {
+
+        state.length ? state[0].transaction.map((data, index) => {
+          return (
+            <div key={index}>
+              <div>{data.transactions.status}</div>
+              <div>Rs. {data.transactions.amount}</div>
+              <div>Description:  {data.transactions.description}</div>
+
+            </div>
+
+          )
+        }) : <p>No datas</p>
+      }
+      {/* <pre>{JSON.stringify(state, null, 4)}</pre> */}
     </div>
   );
 }

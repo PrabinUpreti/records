@@ -30,6 +30,11 @@ export const getInitialTransactionData = (id) => {
     })
     return x
 }
+export const addNewCustomer = (data) => {
+    let firestoreRef = fs.collection("users").doc(userDetails.uid).collection("consumer")
+    firestoreRef.add(data)
+
+}
 
 export default function Firestore() {
 
