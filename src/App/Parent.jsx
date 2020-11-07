@@ -189,14 +189,16 @@ export default function Parent() {
   useEffect(() => {
 
     authCheck((data) => {
-      fetchData().then(a =>
-        // console.log(a)
-        fetchTransactionData(a).then(ob => {
-          dispatch({ type: ACTION.INIT, payload: ob })
-          setDataList(ob)
-          console.dir(ob)
-        })
-      )
+      if (data) {
+        fetchData().then(a =>
+          // console.log(a)
+          fetchTransactionData(a).then(ob => {
+            dispatch({ type: ACTION.INIT, payload: ob })
+            setDataList(ob)
+            console.dir(ob)
+          })
+        )
+      }
       setConstructorHasRun(true)
     })
 

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Customers } from "../../../DatabaseServices";
 import { recordContext } from "./../../../Parent"
+import "./AddPerson.css"
 
 function Person() {
   const recordValue = useContext(recordContext)
@@ -30,8 +31,8 @@ function Person() {
   };
 
   return (
-    <>
-      <form style={{ display: "flex", flexDirection: "column" }}>
+    <div className="addPerson">
+      <form>
         <label htmlFor="Name">Name</label>
         <input
           id="name"
@@ -65,9 +66,9 @@ function Person() {
           value={state.description}
         ></textarea>
         <input type="file" />
-        <input value="SUBMIT" type="submit" onClick={submitForm} />
+        <input className="submit" value="SUBMIT" type="submit" onClick={submitForm} />
       </form>
-    </>
+    </div>
   );
 }
 

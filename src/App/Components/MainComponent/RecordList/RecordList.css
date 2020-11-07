@@ -1,33 +1,45 @@
 .main {
   margin-right: 20px;
-  background-color: #f0f0f0;
   height: auto;
   display: flex;
   width: 100%;
   flex-direction: column;
   padding: 20px;
   margin-top: 5px;
+  overflow: auto;
+  flex-wrap: nowrap;
+  height: 85vh;
 }
 
-.recordList {
-  background-color: white;
+.Link {
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
   padding: 20px;
   justify-content: space-between;
   cursor: pointer;
-  box-shadow: 0.5px 0.5px 2px grey;
+  filter: drop-shadow(-4px -4px 5px rgba(255, 255, 255, 0.7)), drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.1)); /*NOT WORKED */
+  box-shadow: -4px -4px 5px rgba(255, 255, 255, 0.7);
+  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+
 }
-.recordList:hover {
-  box-shadow: 0.6px 0.6px 5px grey;
+
+.Link:active {
+  color:none;
+
 }
 .left {
   display: flex;
   align-items: center;
 }
+.right {
+  /* align-items: right; */
+  color:#1F1B1B;
+  font-weight:bold
+}
 .avatar {
-  margin-top: 16px;
+  margin: 16px;
   width: 140px;
   height: 140px;
 }
@@ -39,17 +51,19 @@
   font-weight: bold;
   font-size: 18px;
   margin: 0px !important;
-  color: #5478d4;
+  color: #1F1B1B;
 }
 .information > .address,
 .registeredDate,
 .phone {
   font-weight: lighter;
-  font-size: 10px;
+  font-size: 12px;
   opacity: 60%;
   margin-top: 4px !important;
   margin-bottom: 4px !important;
+  color:#1F1B1B
 }
 .information > .description {
   font-size: 14px;
+  color:#1F1B1B
 }

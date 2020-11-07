@@ -67,7 +67,7 @@ export default function NavBar() {
       <div className="navContent">
         <h1>Records</h1>
         <h2 className="revinue">Rs. {debit - credit}  </h2>
-        <input type="button" value="LogOut" onClick={() => {
+        <input className="btn" type="button" value="Log out" onClick={() => {
           LogOut((info) => {
             console.log(info);
             history.push("/login")

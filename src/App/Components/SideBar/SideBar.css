@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 20vw;
+  /* border-right: 1px solid #1F1B1B50; */
 }
 .sidebar li {
   /* background-color: #f0f0f0; */
@@ -18,10 +19,10 @@
   text-decoration: none;
 }
 .sidebar > button:focus {
-  background-color: #5478d4;
+  background-color: #4961EF;
   border: none;
   color: white;
-  box-shadow: 0.5px 0.5px 2px grey;
+  box-shadow: 0.5px 0.5px 2px #1F1B1B;
 }
 .sidebar > button:active {
   border: none;
