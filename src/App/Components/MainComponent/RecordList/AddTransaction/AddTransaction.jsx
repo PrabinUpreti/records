@@ -4,8 +4,11 @@ import { useParams } from "react-router-dom";
 import { recordContext } from "../../../../Parent";
 import "./AddTransaction.css"
 
+
+
 function AddTransaction() {
   const [state, setState] = useState({});
+  const [showAddTransaction, setShowAddTransaction] = useState(false)
   const recordValue = useContext(recordContext);
   let { id } = useParams();
 
@@ -21,6 +24,7 @@ function AddTransaction() {
   return (
     <div className="transactionMain">
 
+
       {
 
         state.length ?
@@ -34,7 +38,7 @@ function AddTransaction() {
                 </div>
               </div>
               <div className="rightPart">
-                <button className="addBtn">+</button>
+                <button onClick={() => setShowAddTransaction(!showAddTransaction)} className="addBtn">{showAddTransaction ? "-" : "+"}</button>
               </div>
             </div>
             <table className="transactionTable">
@@ -49,6 +53,40 @@ function AddTransaction() {
 
                 </tr>
               </thead>
+              {showAddTransaction ?
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th >
+                      <input type="date" placeholder="Date" />
+                    </th>
+                    <th>
+                      <input type="text" placeholder="Description" />
+                    </th>
+                    <th>
+                      <input type="text" placeholder="Amount" />
+                    </th>
+                    <th>
+                      <select placeholder="Select date" >
+                        <option>Debit/Credit</option>
+                        <option>Debit</option>
+                        <option>Credit</option>
+
+                      </select>
+                    </th>
+                    <th>
+                      <button style={{
+                        padding: "15px",
+                        width: "100%",
+                        fontSize: "15px",
+                        fontWeight: "600",
+                      }}>Submit</button>
+
+
+                    </th>
+                  </tr>
+                </thead>
+                : null}
               <tbody>
                 {state[0].transaction.map((data, index) => {
                   let lastamount = temp
