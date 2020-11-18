@@ -3,14 +3,22 @@ import { CustomersTransaction } from "../../../../DatabaseServices";
 import { useParams } from "react-router-dom";
 import { recordContext } from "../../../../Parent";
 import "./AddTransaction.css"
+import { addTransaction } from "./../../../../Firestore/Firestore"
 
 
 
 function AddTransaction() {
   const [state, setState] = useState({});
   const [showAddTransaction, setShowAddTransaction] = useState(false)
+  const [inputData, setInputData] = useState({ date: '', description: '', amount: '', status: '' })
   const recordValue = useContext(recordContext);
   let { id } = useParams();
+
+  function enterTransactionData() {
+    addTransaction([id, inputData])
+    // console.log(inputData.date)
+    setInputData({ date: '', description: '', amount: '', status: '' })
+  }
 
   useEffect(() => {
     let newList;
@@ -19,7 +27,7 @@ function AddTransaction() {
     })
     setState(transactionList)
   }, [recordValue])
-  let temp = 0
+  let lastamount = 0
 
   return (
     <div className="transactionMain">
@@ -31,7 +39,7 @@ function AddTransaction() {
           <div>
             <div className="customerDetails">
               <div className="leftPart">
-                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSLHvzyqlpe7Aw_qH5ZR5fvjErwjzNuqIlc6A&usqp=CAU'></img>
+                <img src='https://lh3.googleusercontent.com/pw/ACtC-3fuX-Tc4ckD4UTqJM6fpZZ2AB3rDlEIPMQjCcLiUDJIzSGT0LtFyBG5mR5TD6rHOdkmanV__RGGxq50MjCFj2R6jNgDv2XBplhsoAGMTsBxWU4uD7iL80x-_31E2BA4IqC8XZZDEh04YbHpbRJvlJ73Dg=w552-h981-no?authuser=0'></img>
                 <div className="customerInfo">
                   <p className="name">{state[0].name}</p>
                   <p className="address">{state[0].address}</p>
@@ -42,35 +50,24 @@ function AddTransaction() {
               </div>
             </div>
             <table className="transactionTable">
-              <thead>
-                <tr>
-                  <th>S.N</th>
-                  <th>Date</th>
-                  <th>Description</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Last Amount</th>
-
-                </tr>
-              </thead>
               {showAddTransaction ?
                 <thead>
                   <tr>
                     <th>#</th>
                     <th >
-                      <input type="date" placeholder="Date" />
+                      <input value={inputData.date} onChange={(e) => { setInputData({ ...inputData, date: e.target.value }) }} type="date" placeholder="Date" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Description" />
+                      <input value={inputData.description} onChange={(e) => { setInputData({ ...inputData, description: e.target.value }) }} type="text" placeholder="Description" />
                     </th>
                     <th>
-                      <input type="text" placeholder="Amount" />
+                      <input value={inputData.amount} onChange={(e) => { setInputData({ ...inputData, amount: e.target.value }) }} type="text" placeholder="Amount" />
                     </th>
                     <th>
-                      <select placeholder="Select date" >
-                        <option>Debit/Credit</option>
-                        <option>Debit</option>
-                        <option>Credit</option>
+                      <select value={inputData.status} onChange={(e) => { setInputData({ ...inputData, status: e.target.value == "Debit" ? "dr" : "cr" }) }}  >
+                        <option value="10">Debit/Credit</option>
+                        <option value="debit">Debit</option>
+                        <option value="credit">Credit</option>
 
                       </select>
                     </th>
@@ -80,26 +77,39 @@ function AddTransaction() {
                         width: "100%",
                         fontSize: "15px",
                         fontWeight: "600",
-                      }}>Submit</button>
+                      }}
+                        onClick={enterTransactionData}>Submit</button>
 
 
                     </th>
                   </tr>
                 </thead>
                 : null}
+
+              <thead>
+                <tr>
+                  <th>S.N</th>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Last Amount</th>
+                  <th>Action</th>
+
+                </tr>
+              </thead>
               <tbody>
                 {state[0].transaction.map((data, index) => {
-                  let lastamount = temp
-                  temp = data.transactions.amount
+                  lastamount ? data.transactions.status == "dr" ? lastamount = lastamount - parseFloat(data.transactions.amount) : lastamount = lastamount + parseFloat(data.transactions.amount) : data.transactions.status == "dr" ? lastamount = -parseFloat(data.transactions.amount) : lastamount = parseFloat(data.transactions.amount)
                   let date = new Date(data.transactions.date.seconds * 1000)
                   return (
                     <tr style={{ color: data.transactions.status === "dr" ? "red" : "green" }} key={index}>
                       <td>{index + 1}</td>
                       <td>{date.toLocaleString('default', { month: 'long' })} {date.getDate()}, {date.getFullYear()}</td>
                       <td>{data.transactions.description.toUpperCase()}</td>
-                      <td>Rs. {data.transactions.amount}</td>
+                      <td>Rs. {data.transactions.amount} /-</td>
                       <td>{data.transactions.status == "dr" ? "Debit" : "Credit"}</td>
-                      <td>Rs. {lastamount ? lastamount - data.transactions.amount : data.transactions.amount}</td>
+                      <td> Rs. {lastamount} /-</td>
 
 
                     </tr>

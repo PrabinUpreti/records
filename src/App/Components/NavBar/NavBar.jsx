@@ -66,7 +66,7 @@ export default function NavBar() {
       {/* <input type="button" value="ADD Transaction" onClick={UpdateTransaction}/> */}
       <div className="navContent">
         <h1>Records</h1>
-        <h2 className="revinue">Rs. {debit - credit}  </h2>
+        <h2 className="revinue">Rs. {credit - debit} /- </h2>
         <input className="btn" type="button" value="Log out" onClick={() => {
           LogOut((info) => {
             console.log(info);

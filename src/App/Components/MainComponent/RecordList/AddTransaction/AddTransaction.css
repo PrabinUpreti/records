@@ -53,12 +53,12 @@
   cursor: pointer;
   color: #fff
 }
-.rightPart > button:hover{
+/* .rightPart > button:hover{ */
   /* font-size: 40px; */
   /* height: 60px; */
   /* width: 60px; */
   /* border-radius:30px */
-}
+/* } */
 .rightPart > button:focus{
 outline:0px
 }
