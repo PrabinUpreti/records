@@ -31,12 +31,21 @@
 .leftPart{
   display:flex;
   flex:1;
-  align-items:center
+  align-items:center;
 }
-.leftPart > img{
+.textAvatar{
+  background-color: #4961EF;
   height: 150px;
   width: 150px;
   border-radius: 125px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.textAvatar > p{
+  font-weight: bold;
+  color:white;
+  font-size:50px
 }
 .rightPart{
   display: flex;

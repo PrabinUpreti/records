@@ -1,6 +1,6 @@
 .main {
   margin-right: 20px;
-  height: auto;
+  /* height: auto; */
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -8,7 +8,7 @@
   margin-top: 5px;
   overflow: auto;
   flex-wrap: nowrap;
-  height: 85vh;
+  height: calc(100vh - 120px);
 }
 
 .Link {
@@ -42,11 +42,16 @@
   margin: 16px;
   width: 140px;
   height: 140px;
+  background-color:#4961EF;
+  border-radius:5px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
-.avatar > img {
-  max-height: 100%;
-  max-width: 100%;
-  border-radius: 4%;
+.avatar > p {
+  font-size:50px;
+  font-weight:bold;
+  color:white;
 }
 .information > .name {
   font-weight: bold;

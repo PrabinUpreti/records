@@ -2,12 +2,15 @@
   display: flex;
   flex-direction: column;
   width: 20vw;
-  /* border-right: 1px solid #1F1B1B50; */
+  height: calc(100vh - 102px);
+  border-right: 1px solid #1F1B1B50;
+  padding: 0px;
+  margin:16px, 0px;
 }
 .sidebar li {
   /* background-color: #f0f0f0; */
   margin: 5px;
-  padding: 10px 30px;
+  padding: 10px 0px;
   font-weight: 400;
   text-transform: uppercase;
   cursor: pointer;
@@ -30,7 +33,7 @@
 
 /*                RESPONSIVE                       */
 @media only screen and (max-width: 1080px) {
-  .sidebar {
+  /* .sidebar {
     width: 100%;
-  }
+  } */
 }

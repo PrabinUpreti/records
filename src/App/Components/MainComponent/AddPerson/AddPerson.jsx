@@ -32,7 +32,7 @@ function Person() {
 
   return (
     <div className="addPerson">
-      <form>
+      <form className="myform">
         <label htmlFor="Name">Name</label>
         <input
           id="name"
@@ -65,7 +65,6 @@ function Person() {
           rows="10"
           value={state.description}
         ></textarea>
-        <input type="file" />
         <input className="submit" value="SUBMIT" type="submit" onClick={submitForm} />
       </form>
     </div>

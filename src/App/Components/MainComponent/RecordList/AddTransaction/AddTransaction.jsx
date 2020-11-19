@@ -39,7 +39,10 @@ function AddTransaction() {
           <div>
             <div className="customerDetails">
               <div className="leftPart">
-                <img src='https://lh3.googleusercontent.com/pw/ACtC-3fuX-Tc4ckD4UTqJM6fpZZ2AB3rDlEIPMQjCcLiUDJIzSGT0LtFyBG5mR5TD6rHOdkmanV__RGGxq50MjCFj2R6jNgDv2XBplhsoAGMTsBxWU4uD7iL80x-_31E2BA4IqC8XZZDEh04YbHpbRJvlJ73Dg=w552-h981-no?authuser=0'></img>
+                <div className="textAvatar">
+                  <p>{state[0].name[0]}{state[0].name[1]}</p>
+                </div>
+                {/* <img src='https://lh3.googleusercontent.com/pw/ACtC-3fuX-Tc4ckD4UTqJM6fpZZ2AB3rDlEIPMQjCcLiUDJIzSGT0LtFyBG5mR5TD6rHOdkmanV__RGGxq50MjCFj2R6jNgDv2XBplhsoAGMTsBxWU4uD7iL80x-_31E2BA4IqC8XZZDEh04YbHpbRJvlJ73Dg=w552-h981-no?authuser=0'></img> */}
                 <div className="customerInfo">
                   <p className="name">{state[0].name}</p>
                   <p className="address">{state[0].address}</p>
@@ -94,7 +97,7 @@ function AddTransaction() {
                   <th>Amount</th>
                   <th>Status</th>
                   <th>Last Amount</th>
-                  <th>Action</th>
+                  {/* <th>Action</th> */}
 
                 </tr>
               </thead>
