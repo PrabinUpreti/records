@@ -74,3 +74,21 @@
   display:none;  
   }
 }
+.register{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+.register p {
+  color: #fff;
+  margin: 0px !important;
+  margin-top: 10px !important;
+}
+.register p > a {
+  color:blue;
+  cursor: pointer;
+}
+.rightContent input:focus {
+outline: none;
+}
