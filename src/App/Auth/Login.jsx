@@ -41,9 +41,9 @@ export default function Login() {
     }
     const submitForm = (event) => {
 
+    event.preventDefault();
     let pattern = new RegExp(/^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/)
     if(pattern.test(credentials.username) && credentials.password.length >= 6){
-        event.preventDefault();
             let u = credentials.username;
             let p = credentials.password;
             SignIn(u, p, (signedUP) => {
@@ -53,11 +53,11 @@ export default function Login() {
     }
     const submitSignupForm = (e) => {
 
+        e.preventDefault();
         let pattern = new RegExp(/^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/)
 
         if(pattern.test(signupCredentials.username) && signupCredentials.password.length >= 6 && signupCredentials.password == signupCredentials.reEnteredPassword){
 
-            e.preventDefault();
             let u = signupCredentials.username;
             let p = signupCredentials.password;
             console.log(signupCredentials);
