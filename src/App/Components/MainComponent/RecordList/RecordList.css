@@ -58,15 +58,15 @@
   margin: 0px !important;
   color: #1f1b1b;
 }
-.address,
-.registeredDate,
-.phone {
+.information > .address,
+.information > .registeredDate,
+.information > .phone {
   font-weight: lighter;
   font-size: 12px;
-  opacity: 60%;
+  /* opacity: 60%; */
   margin-top: 4px !important;
   margin-bottom: 4px !important;
-  color: #1f1b1b;
+  color: #363434;
 }
 .information > .description {
   font-size: 14px;
