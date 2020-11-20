@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./NavBar.css";
-import { recordContext } from "./../../Parent"
+import { recordContext,recordTransactionContext } from "./../../Parent"
 
 
 import { LogOut } from './../../Auth/Auth'
@@ -13,6 +13,8 @@ import {
 
 export default function NavBar() {
   const recordValue = useContext(recordContext)
+  const recordTranValue = useContext(recordTransactionContext)
+
 
 
   let history = useHistory()
@@ -48,18 +50,15 @@ export default function NavBar() {
   useEffect(() => {
     setDebit(0)
     setCredit(0)
-    if (recordValue.state.customer) {
-      recordValue.state.customer.map(data => {
-        let temp = data.transaction
-        temp.map(d => {
+    if (recordTranValue.state.transaction) {
+      recordTranValue.state.transaction.map(d => {
           console.log(d);
-          d.transactions.status == "dr" ? setDebit(prev => prev + parseFloat(d.transactions.amount)) : setCredit(prev => prev + parseFloat(d.transactions.amount))
-        })
-        // console.log(debit,credit);
+          d.status == "dr" ? setDebit(prev => prev + parseFloat(d.amount)) : setCredit(prev => prev + parseFloat(d.amount))
+        console.log(debit,credit);
 
       })
     }
-  }, [recordValue])
+  }, [recordValue,recordTranValue])
   console.log(debit, credit)
   return (
     <div className="nav">

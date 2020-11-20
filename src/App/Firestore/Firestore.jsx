@@ -37,8 +37,8 @@ export const addNewCustomer = (data) => {
 }
 
 export const addTransaction = (param) => {
-    let firestoreRef = fs.collection("users").doc(userDetails.uid).collection("consumer").doc(param[0]).collection("transaction")
-    firestoreRef.add(param[1])
+    let firestoreRef = fs.collection("users").doc(userDetails.uid).collection("transaction")
+    firestoreRef.add(param)
 
 
 }

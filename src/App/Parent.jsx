@@ -4,8 +4,11 @@ import SideBar from "./Components/SideBar/SideBar";
 import Login from './Auth/Login';
 import "./Parent.css";
 import { authCheck, ProtectedRoute } from './Auth/Auth';
+import {fs} from "./Auth/Auth"
+import { userDetails } from './Auth/Auth'
 
-import { getInitialData, getInitialTransactionData, addNewCustomer } from './Firestore/Firestore'
+
+import { getInitialData, getInitialTransactionData, addNewCustomer,addTransaction } from './Firestore/Firestore'
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,19 +20,22 @@ import {
 import { database } from "firebase";
 
 export const recordContext = React.createContext();
+export const recordTransactionContext = React.createContext();
+
 export const ACTION = {
   INIT: 'init',
-  INITTRANSISTOR: "init-trans",
-  ADDNEWCUSTOMER: "add-new-customer"
+  INITTRANSICTION: "init-trans",
+  ADDNEWCUSTOMER: "add-new-customer",
+  UPDATETRANSACTION:"update-transaction"
 
 }
 
-function reducer(currentState, action) {
+function customerReducer(currentState, action) {
   switch (action.type) {
     case ACTION.INIT:
       return { ...currentState, customer: action.payload }
-    case ACTION.INITTRANSISTOR:
-      return { ...currentState }
+    // case ACTION.INITTRANSISTOR:
+    //   return { ...currentState }
     case ACTION.ADDNEWCUSTOMER:
       addNewCustomer(action.payload)
     // console.log(action.payload);
@@ -37,11 +43,16 @@ function reducer(currentState, action) {
       return currentState;
   }
 }
-
-//component function
-
-
-
+function transactionReducer(currentState,action){
+switch(action.type){
+  case ACTION.INITTRANSICTION:
+    return {...currentState,transaction:action.payload}  
+  case ACTION.UPDATETRANSACTION:
+    addTransaction(action.payload)
+    default:
+      return currentState;
+}
+}
 export default function Parent() {
 
   // const [auth,setauth] = useState(false)
@@ -50,56 +61,62 @@ export default function Parent() {
 
 
   //OPEN---SINGLE SOURCE OF TRUTH
-  const [state, dispatch] = useReducer(reducer, []);
+  const [state, dispatch] = useReducer(customerReducer, []);
+  const [tranState, tranDispatch] = useReducer(transactionReducer, []);
+
   const [dataList, setDataList] = useState([])
+  const [customerDatas, setCustomerDatas] = useState([])
+  const [transactionDatas, setTransactionDatas] = useState([])
+
+{
 
 
 
 
-  function fetchData() {
+  // function fetchData() {
 
-    // -----------------------------------------------PRACTICS--------------------------------------------//
-    let x = new Promise((resolve, reject) => {
-      getInitialData().then(d => {
-        let temp = []
-        // console.clear()
-        d.docs.forEach(obj => {
-          temp = [
-            ...temp,
-            {
-              customerId: obj.id,
-              data: obj.data()
-            }]
-        })
-        resolve(temp);
-      })
-    })
+  //   // -----------------------------------------------PRACTICS--------------------------------------------//
+  //   let x = new Promise((resolve, reject) => {
+  //     getInitialData().then(d => {
+  //       let temp = []
+  //       // console.clear()
+  //       d.docs.forEach(obj => {
+  //         temp = [
+  //           ...temp,
+  //           {
+  //             customerId: obj.id,
+  //             data: obj.data()
+  //           }]
+  //       })
+  //       resolve(temp);
+  //     })
+  //   })
 
-    return x
-  }
-  async function fetchTransactionData(dat) {
-    let temp2 = []
-    for (const d of dat) {
-      let id = d.customerId
-      await getInitialTransactionData(id).then(res => {
-        let t = []
-        res.docs.forEach(r => {
-          t = [...t, {
-            transactionId: r.id,
-            transactions: r.data()
-          }]
+  //   return x
+  // }
+  // async function fetchTransactionData(dat) {
+  //   let temp2 = []
+  //   for (const d of dat) {
+  //     let id = d.customerId
+  //     await getInitialTransactionData(id).then(res => {
+  //       let t = []
+  //       res.docs.forEach(r => {
+  //         t = [...t, {
+  //           transactionId: r.id,
+  //           transactions: r.data()
+  //         }]
 
-        })
-        temp2 = [...temp2, {
-          customerId: id, ...d.data, transaction: t
-        }]
-      })
-      console.log(temp2);
-    }
-    return temp2
-  }
-
-
+  //       })
+  //       temp2 = [...temp2, {
+  //         customerId: id, ...d.data, transaction: t
+  //       }]
+  //     })
+  //     console.log(temp2);
+  //   }
+  //   return temp2
+  // }
+}
+{
   // -----------------------------------------------PRACTICS--------------------------------------------//
 
 
@@ -185,19 +202,55 @@ export default function Parent() {
 
   // }
 
-
+}
   useEffect(() => {
 
     authCheck((data) => {
       if (data) {
-        fetchData().then(a =>
-          // console.log(a)
-          fetchTransactionData(a).then(ob => {
-            dispatch({ type: ACTION.INIT, payload: ob })
-            setDataList(ob)
-            console.dir(ob)
+
+        console.log(data.uid)
+        let ref = fs.collection("users").doc(data.uid).collection("consumer")
+
+        ref.onSnapshot(respon=>{
+          setCustomerDatas([]);
+          let localDatas = []
+          
+          respon.docs.forEach(d=>{
+
+                let finalData = {...d.data(),id:d.id}
+                localDatas = [...localDatas,finalData ]
+              })
+              setCustomerDatas(localDatas)
+    dispatch({ type: ACTION.INIT, payload: localDatas })
+
+              
+              
+        })
+        
+
+        let tranRef = fs.collection("users").doc(data.uid).collection("transaction")
+
+        tranRef.onSnapshot(res=>{
+          setTransactionDatas([])
+          let localTran =[]
+
+          res.docs.forEach(d=>{
+            let finalTranData = {...d.data(),id:d.id}
+            localTran = [...localTran,finalTranData]
           })
-        )
+          setTransactionDatas(localTran)
+          tranDispatch({ type: ACTION.INITTRANSICTION, payload: localTran })
+
+        })
+
+
+        // fetchData().then(a =>
+        //   fetchTransactionData(a).then(ob => {
+        //     dispatch({ type: ACTION.INIT, payload: ob })
+        //     setDataList(ob)
+        //     console.dir(ob)
+        //   })
+        // )
       }
       setConstructorHasRun(true)
     })
@@ -224,10 +277,8 @@ export default function Parent() {
 
 
 
-
-
   if (constructorHasRun) {
-    console.log(state);
+    console.log(tranState);
     return (
       <>
         <Router>
@@ -236,18 +287,22 @@ export default function Parent() {
 
             <ProtectedRoute path="/" exact>
               <recordContext.Provider value={{ state: state, dispatch: dispatch }}>
-                <NavBar />
-                <div className="mainSideBar">
-                  <SideBar className="parentSideBar" />
-                </div>
+                <recordTransactionContext.Provider value={{ state: tranState, dispatch: tranDispatch }}>
+
+                  <NavBar />
+                  <div className="mainSideBar">
+                    <SideBar className="parentSideBar" />
+                  </div>
+                </recordTransactionContext.Provider>
               </recordContext.Provider>
+
             </ProtectedRoute>
 
             <Route path="*"><Redirect to="/"></Redirect>
             </Route>
           </Switch>
         </Router>
-        {/* <pre>{JSON.stringify(state, null, 2)}</pre> */}
+        {/* <pre>{JSON.stringify(transactionDatas, null, 2)}</pre> */}
       </>
     )
   }
