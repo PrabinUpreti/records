@@ -18,16 +18,15 @@
   padding: 20px;
   justify-content: space-between;
   cursor: pointer;
-  filter: drop-shadow(-4px -4px 5px rgba(255, 255, 255, 0.7)), drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.1)); /*NOT WORKED */
+  filter: drop-shadow(-4px -4px 5px rgba(255, 255, 255, 0.7)),
+    drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.1)); /*NOT WORKED */
   box-shadow: -4px -4px 5px rgba(255, 255, 255, 0.7);
   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.1);
   text-decoration: none;
-
 }
 
 .Link:active {
-  color:none;
-
+  color: none;
 }
 .left {
   display: flex;
@@ -35,29 +34,29 @@
 }
 .right {
   /* align-items: right; */
-  color:#1F1B1B;
-  font-weight:bold
+  color: #1f1b1b;
+  font-weight: bold;
 }
 .avatar {
   margin: 16px;
   width: 140px;
   height: 140px;
-  background-color:#4961EF;
-  border-radius:5px;
-  display:flex;
+  background-color: #4961ef;
+  border-radius: 5px;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 .avatar > p {
-  font-size:50px;
-  font-weight:bold;
-  color:white;
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
 }
 .information > .name {
   font-weight: bold;
   font-size: 18px;
   margin: 0px !important;
-  color: #1F1B1B;
+  color: #1f1b1b;
 }
 .information > .address,
 .registeredDate,
@@ -67,9 +66,9 @@
   opacity: 60%;
   margin-top: 4px !important;
   margin-bottom: 4px !important;
-  color:#1F1B1B
+  color: #1f1b1b;
 }
 .information > .description {
   font-size: 14px;
-  color:#1F1B1B
+  color: #1f1b1b;
 }
