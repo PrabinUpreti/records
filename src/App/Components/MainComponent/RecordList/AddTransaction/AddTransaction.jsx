@@ -15,23 +15,35 @@ function AddTransaction() {
   const [inputData, setInputData] = useState({ date: '', description: '', amount: '', status: '' })
   const recordValue = useContext(recordContext);
   const recordTranValue = useContext(recordTransactionContext)
+  const [isValid,setIsValid] = useState(true)
+
 
   let { id } = useParams();
 
   function enterTransactionData() {
-    let tranData ={      
+    console.clear();
+    console.log(inputData)
+    if(!isNaN(inputData.amount) && inputData.description.length > 2 && (inputData.status == "debit" || inputData.status == "credit")){
+    let tranData ={
       amount:parseFloat(inputData.amount),
       consumerID:id,
       createdAt:new Date(),
       date:new Date(),
       description:inputData.description,
-      status:inputData.status,
+      status:inputData.status == "debit" ? "dr" : "cr",
       updatedAT:new Date()
     }
 
     recordTranValue.dispatch({ type: "update-transaction", payload: tranData })
     setInputData({ date: '', description: '', amount: '', status: '' })
     setShowAddTransaction(false)
+    setIsValid(true)
+    console.log(tranData);
+
+  }
+  else{
+    setIsValid(false)
+  }
   }
 
   useEffect(() => {
@@ -90,10 +102,10 @@ function AddTransaction() {
                       <input value={inputData.amount} onChange={(e) => { setInputData({ ...inputData, amount: e.target.value }) }} type="text" placeholder="Amount" />
                     </th>
                     <th>
-                      <select value={inputData.status} onChange={(e) => { setInputData({ ...inputData, status: e.target.value == "debit" ? "dr" : "cr" }) }}  >
+                      <select onChange={(e) => { setInputData({ ...inputData, status: e.target.value}) }}  >
                         <option value="10">Debit/Credit</option>
                         <option value="debit">Debit</option>
-                        <option value="credit">Credit</option>
+                        <option  value="credit">Credit</option>
 
                       </select>
                     </th>
@@ -109,9 +121,9 @@ function AddTransaction() {
 
                     </th>
                   </tr>
+                  <tr style={{display:isValid ? "none":""}}><th colSpan="6" style={{textAlign:"center", padding:"0px", color:"#FE9777"}}>Please enter correctly.</th></tr>
                 </thead>
                 : null}
-
               <thead>
                 <tr>
                   <th>S.N</th>

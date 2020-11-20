@@ -47,7 +47,7 @@
   justify-content: center;
   align-items: center;
 }
-.avatar > p {
+.avatarText {
   font-size: 50px;
   font-weight: bold;
   color: white;
@@ -58,7 +58,7 @@
   margin: 0px !important;
   color: #1f1b1b;
 }
-.information > .address,
+.address,
 .registeredDate,
 .phone {
   font-weight: lighter;

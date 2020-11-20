@@ -1,7 +1,7 @@
 import React from "react"
 import "./Auth.css"
 export default function LoginComponent(props) {
-    // console.log(props);
+    let pattern = new RegExp(/^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/)
     return (
         <div className="authForm">
             <div className="logInForm">
@@ -10,11 +10,18 @@ export default function LoginComponent(props) {
                 </div>
                 <div className="rightContent">
                     <form >
-                        <label htmlFor="">Name</label>
-                        <input value={props.credentials.username} onChange={(event) => { props.setCredentials({ ...props.credentials, username: event.target.value }) }} type="email" name="" id="" />
+
+                        <label htmlFor="">E-mail</label>
+
+                        <input style={{ border: !pattern.test(props.credentials.username) ? "2px solid red" : "2px solid green" }}  value={props.credentials.username} onChange={(event) => { props.setCredentials({ ...props.credentials, username: event.target.value }) }} type="email" name="" id="" />
+
+
                         <label htmlFor="">Password</label>
-                        <input value={props.credentials.password} onChange={(event) => { props.setCredentials({ ...props.credentials, password: event.target.value }) }} type="password" name="" id="" />
-                        <button className="authBtn" onClick={props.submitForm} type="submit">Submit</button>
+
+                        <input style={{ border: props.credentials.password.length < 6 ? "2px solid red" : "2px solid green" }} value={props.credentials.password} onChange={(event) => { props.setCredentials({ ...props.credentials, password: event.target.value }) }} type="password" name="" id="" />
+
+
+                        <button className="authBtn" onClick={props.submitForm} type="submit">Login</button>
                     </form>
                     <div className="register">
                         <p>Don't have account? <a onClick={() => props.setChooseForm("signup")}>Register</a> </p>

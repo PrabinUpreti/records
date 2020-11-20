@@ -50,7 +50,7 @@ export default function RecordList() {
                 <div className="avatar">
                   {/* <img src={value.imgurl ? value.imgurl : defaultImage} alt="images" /> */}
                   {/* <img src={img[index]} alt="images" /> */}
-                  <p>{value.name[0]}{value.name[1]}</p>
+                  <p className="avatarText">{value.name[0]}{value.name[1]}</p>
 
                 </div>
                 <div className="information">
