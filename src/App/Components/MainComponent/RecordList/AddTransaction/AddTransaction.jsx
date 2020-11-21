@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { CustomersTransaction } from "../../../../DatabaseServices";
 import { useParams } from "react-router-dom";
-import { recordContext,recordTransactionContext } from "../../../../Parent";
+import { recordContext,recordTransactionContext, ACTION } from "../../../../Parent";
 import "./AddTransaction.css"
 import { addTransaction } from "./../../../../Firestore/Firestore"
 
@@ -21,7 +21,7 @@ function AddTransaction() {
   let { id } = useParams();
 
   function enterTransactionData() {
-    console.clear();
+    // console.clear();
     console.log(inputData)
     if(!isNaN(inputData.amount) && inputData.description.length > 2 && (inputData.status == "debit" || inputData.status == "credit")){
     let tranData ={
@@ -34,7 +34,7 @@ function AddTransaction() {
       updatedAT:new Date()
     }
 
-    recordTranValue.dispatch({ type: "update-transaction", payload: tranData })
+    recordTranValue.dispatch({ type: ACTION.ADD_TRANSACTION, payload: tranData })
     setInputData({ date: '', description: '', amount: '', status: '' })
     setShowAddTransaction(false)
     setIsValid(true)
@@ -45,8 +45,42 @@ function AddTransaction() {
     setIsValid(false)
   }
   }
+  function updateTransactionData(d) {
+    // console.clear();
+    console.log(d)
+  //   if(!isNaN(inputData.amount) && inputData.description.length > 2 && (inputData.status == "debit" || inputData.status == "credit")){
+  //   let tranData ={
+  //     amount:parseFloat(inputData.amount),
+  //     consumerID:id,
+  //     createdAt:new Date(),
+  //     date:new Date(),
+  //     description:inputData.description,
+  //     status:inputData.status == "debit" ? "dr" : "cr",
+  //     updatedAT:new Date()
+  //   }
+
+    // recordTranValue.dispatch({ type: ACTION., payload: tranData })
+    setInputData({ date: d.date, description: d.description, amount: d.amount, status: d.status == "cr" ? "credit" : "debit" })
+      setShowAddTransaction(true)
+  //   setIsValid(true)
+  //   console.log(tranData);
+
+  // }
+  // else{
+  //   setIsValid(false)
+  // }
+  }
+
+  function deleteRecord(tranid){
+    recordTranValue.dispatch({ type: ACTION.DELETE_TRANSACTION, payload: tranid })
+
+  }
 
   useEffect(() => {
+    console.log(recordTranValue);
+
+    if (typeof(recordTranValue.state) != "undefined") {
+      if(recordTranValue.state.transaction){
     let transactionList=[]
     recordTranValue.state.transaction.map(d => {
       if(d.consumerID == id){
@@ -61,6 +95,7 @@ function AddTransaction() {
         }
     })
     console.log(transactionList);
+  }}
   }, [recordValue,recordTranValue])
   let lastamount = 0
 
@@ -116,7 +151,7 @@ function AddTransaction() {
                         fontSize: "15px",
                         fontWeight: "600",
                       }}
-                        onClick={enterTransactionData}>Submit</button>
+                        onClick={()=>enterTransactionData()}>Submit</button>
 
 
                     </th>
@@ -132,7 +167,7 @@ function AddTransaction() {
                   <th>Amount</th>
                   <th>Status</th>
                   <th>Last Amount</th>
-                  {/* <th>Action</th> */}
+                  <th>Action</th>
 
                 </tr>
               </thead>
@@ -148,6 +183,7 @@ function AddTransaction() {
                       <td>Rs. {data.amount} /-</td>
                       <td>{data.status == "dr" ? "Debit" : "Credit"}</td>
                       <td> Rs. {lastamount} /-</td>
+                      <td> <button onClick={() => updateTransactionData(data)}>Edit</button><button onClick={()=>{deleteRecord(data.id)}} >Delete</button></td>
 
 
                     </tr>

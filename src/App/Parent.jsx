@@ -8,7 +8,7 @@ import {fs} from "./Auth/Auth"
 import { userDetails } from './Auth/Auth'
 
 
-import { getInitialData, getInitialTransactionData, addNewCustomer,addTransaction } from './Firestore/Firestore'
+import { getInitialData, getInitialTransactionData, addNewCustomer,addTransaction,deleteTransaction } from './Firestore/Firestore'
 import {
   BrowserRouter as Router,
   Switch,
@@ -24,33 +24,39 @@ export const recordTransactionContext = React.createContext();
 
 export const ACTION = {
   INIT: 'init',
-  INITTRANSICTION: "init-trans",
-  ADDNEWCUSTOMER: "add-new-customer",
-  UPDATETRANSACTION:"update-transaction"
+  INIT_TRANSACTION: "init-trans",
+  ADD_NEW_CUSTOMER: "add-new-customer",
+  ADD_TRANSACTION:"add-transaction",
+  DELETE_TRANSACTION:"delete-transaction"
 
 }
 
 function customerReducer(currentState, action) {
   switch (action.type) {
+    
     case ACTION.INIT:
       return { ...currentState, customer: action.payload }
-    // case ACTION.INITTRANSISTOR:
-    //   return { ...currentState }
-    case ACTION.ADDNEWCUSTOMER:
+    case ACTION.ADD_NEW_CUSTOMER:
       addNewCustomer(action.payload)
-    // console.log(action.payload);
+    break;
     default:
       return currentState;
   }
 }
 function transactionReducer(currentState,action){
 switch(action.type){
-  case ACTION.INITTRANSICTION:
-    return {...currentState,transaction:action.payload}  
-  case ACTION.UPDATETRANSACTION:
+
+  case ACTION.INIT_TRANSACTION:
+    return {...currentState,transaction:action.payload}
+  case ACTION.ADD_TRANSACTION:
     addTransaction(action.payload)
-    default:
-      return currentState;
+    break;
+  case ACTION.DELETE_TRANSACTION:
+    deleteTransaction(action.payload)
+    break;
+  default:
+    return currentState;
+
 }
 }
 export default function Parent() {
@@ -239,7 +245,7 @@ export default function Parent() {
             localTran = [...localTran,finalTranData]
           })
           setTransactionDatas(localTran)
-          tranDispatch({ type: ACTION.INITTRANSICTION, payload: localTran })
+          tranDispatch({ type: ACTION.INIT_TRANSACTION, payload: localTran })
 
         })
 

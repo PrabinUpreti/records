@@ -50,13 +50,16 @@ export default function NavBar() {
   useEffect(() => {
     setDebit(0)
     setCredit(0)
-    if (recordTranValue.state.transaction) {
-      recordTranValue.state.transaction.map(d => {
-          console.log(d);
-          d.status == "dr" ? setDebit(prev => prev + parseFloat(d.amount)) : setCredit(prev => prev + parseFloat(d.amount))
-        console.log(debit,credit);
+    console.log(recordTranValue)
+    if (typeof(recordTranValue.state) != "undefined") {
+      if(recordTranValue.state.transaction){
+        recordTranValue.state.transaction.map(d => {
+            console.log(d);
+            d.status == "dr" ? setDebit(prev => prev + parseFloat(d.amount)) : setCredit(prev => prev + parseFloat(d.amount))
+          console.log(debit,credit);
 
-      })
+        })
+      }
     }
   }, [recordValue,recordTranValue])
   console.log(debit, credit)

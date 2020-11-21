@@ -3,9 +3,9 @@
   flex-direction: column;
   width: 20vw;
   height: calc(100vh - 102px);
-  border-right: 1px solid #1F1B1B50;
+  border-right: 1px solid #1f1b1b50;
   padding: 0px;
-  margin:16px, 0px;
+  margin: 16px, 0px;
 }
 .sidebar li {
   /* background-color: #f0f0f0; */
@@ -22,10 +22,10 @@
   text-decoration: none;
 }
 .sidebar > button:focus {
-  background-color: #4961EF;
+  background-color: #4961ef;
   border: none;
   color: white;
-  box-shadow: 0.5px 0.5px 2px #1F1B1B;
+  box-shadow: 0.5px 0.5px 2px #1f1b1b;
 }
 .sidebar > button:active {
   border: none;
@@ -33,7 +33,12 @@
 
 /*                RESPONSIVE                       */
 @media only screen and (max-width: 1080px) {
-  /* .sidebar {
+  .sidebar {
     width: 100%;
-  } */
+    height: auto;
+    align-items: center;
+    border-right: none;
+    border-bottom: 1px solid #1f1b1b50;
+    /* display: none; */
+  }
 }
