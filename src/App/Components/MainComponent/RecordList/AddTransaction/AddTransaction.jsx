@@ -5,6 +5,7 @@ import { recordContext,recordTransactionContext, ACTION } from "../../../../Pare
 import "./AddTransaction.css"
 import { addTransaction } from "./../../../../Firestore/Firestore"
 import { NotListedLocation } from "@material-ui/icons";
+import { MdEdit,MdDelete } from "react-icons/md";
 
 
 
@@ -179,10 +180,10 @@ function AddTransaction() {
                       <td>{date.toLocaleString('default', { month: 'long' })} {date.getDate()}, {date.getFullYear()}</td>
                       <td>{data.description.toUpperCase()}</td>
                       <td>Rs. {data.amount} /-</td>
+                      {/* <td><input type="text" value={`Rs. ${data.amount}`} disabled={true}></input></td> */}
                       <td>{data.status == "dr" ? "Debit" : "Credit"}</td>
                       <td> Rs. {lastamount} /-</td>
-                      <td> <button onClick={() => handelUpdateTransactionData(data)}>Edit</button><button onClick={()=>{deleteRecord(data.id)}} >Delete</button></td>
-
+                      <td> <button onClick={() => handelUpdateTransactionData(data)}><MdEdit/></button><button onClick={()=>{deleteRecord(data.id)}} ><MdDelete/></button></td>
 
                     </tr>
                   )
