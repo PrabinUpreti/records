@@ -113,8 +113,6 @@ function AddTransaction() {
                       <td>Rs. {data.transactions.amount} /-</td>
                       <td>{data.transactions.status == "dr" ? "Debit" : "Credit"}</td>
                       <td> Rs. {lastamount} /-</td>
-
-
                     </tr>
                   )
                 })}
