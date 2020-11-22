@@ -123,6 +123,7 @@ function AddTransaction() {
                 <thead>
                   <tr>
                     <th>#</th>
+                    <th>#</th>
                     <th >
                       <input value={inputData.date} onChange={(e) => { setInputData({ ...inputData, date: e.target.value }) }} type="date" placeholder="Date" />
                     </th>
