@@ -25,7 +25,7 @@ export default function RecordList() {
 
   return (
     <div className="main">
-      {console.log(customerData,transactionData)}
+      {/* {console.log(customerData,transactionData)} */}
       {
         customerData ?
         customerData.map((value, index) => {
@@ -33,7 +33,6 @@ export default function RecordList() {
 
           creditAmount = 0
           debitAmount = 0
-          console.log(value);
 
           transactionData && transactionData.map((trn) => {
             if(value.id == trn.consumerID){
@@ -43,6 +42,7 @@ export default function RecordList() {
               })
 
           return (
+            <div key={index}>
             <Link className="Link" to={`/${value.id}`} key={value.id}>
               <div className="left">
                 <div className="avatar">
@@ -61,10 +61,13 @@ export default function RecordList() {
               </div>
               <div className="right">
                 <p>Rs. {creditAmount - debitAmount} /-</p>
-                <button onClick={()=>alert("dsfjdhvf")}>Edit</button>
-                <button>Delete</button>
+                {/* <Link to = {`/person/${value.id}`}>
+                  <button onClick={()=>alert("dsfjdhvf")}>Edit</button>
+                  <button>Delete</button>
+                </Link> */}
               </div>
-            </Link>
+                </Link>
+              </div>
           )
         })
         : console.log("Nothing")}

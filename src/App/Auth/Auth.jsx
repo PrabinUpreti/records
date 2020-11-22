@@ -6,7 +6,7 @@ import { Route, Redirect } from 'react-router-dom';
 export let userDetails = {};
 
 export const ProtectedRoute = ({ children, ...rest }) => {
-  console.log(userDetails);
+  console.log(rest, children);
 
   let data = { ...rest };
   let d = data.location;

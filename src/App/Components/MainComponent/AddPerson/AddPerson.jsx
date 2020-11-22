@@ -2,8 +2,13 @@ import React, { useState, useContext } from "react";
 import { Customers } from "../../../DatabaseServices";
 import { recordContext } from "./../../../Parent"
 import "./AddPerson.css"
+import {useParams} from "react-router-dom"
 
 function Person() {
+
+  let { id } = useParams();
+  console.log(id);
+
   const recordValue = useContext(recordContext)
 const [isvalid,setIsvalid] = useState(true)
   const [state, setState] = useState({

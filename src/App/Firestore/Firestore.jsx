@@ -42,6 +42,11 @@ export const addTransaction = (param) => {
     firestoreRef.add(param)
 }
 
+export const updateTransaction = (param) =>{
+    console.log(param)
+    let updateRef = fs.collection("users").doc(userDetails.uid).collection("transaction").doc(param.id)
+    updateRef.update(param.data)
+}
 export const deleteTransaction = (id) =>{
     console.log(id)
     let deleteRef = fs.collection("users").doc(userDetails.uid).collection("transaction").doc(id)

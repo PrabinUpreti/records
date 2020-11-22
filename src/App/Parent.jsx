@@ -8,7 +8,7 @@ import {fs} from "./Auth/Auth"
 import { userDetails } from './Auth/Auth'
 
 
-import { getInitialData, getInitialTransactionData, addNewCustomer,addTransaction,deleteTransaction } from './Firestore/Firestore'
+import { getInitialData, getInitialTransactionData,updateTransaction, addNewCustomer,addTransaction,deleteTransaction } from './Firestore/Firestore'
 import {
   BrowserRouter as Router,
   Switch,
@@ -27,7 +27,8 @@ export const ACTION = {
   INIT_TRANSACTION: "init-trans",
   ADD_NEW_CUSTOMER: "add-new-customer",
   ADD_TRANSACTION:"add-transaction",
-  DELETE_TRANSACTION:"delete-transaction"
+  DELETE_TRANSACTION:"delete-transaction",
+  UPDATE_TRANSACTION:"update-transaction",
 
 }
 
@@ -50,6 +51,9 @@ switch(action.type){
     return {...currentState,transaction:action.payload}
   case ACTION.ADD_TRANSACTION:
     addTransaction(action.payload)
+    break;
+  case ACTION.UPDATE_TRANSACTION:
+    updateTransaction(action.payload)
     break;
   case ACTION.DELETE_TRANSACTION:
     deleteTransaction(action.payload)

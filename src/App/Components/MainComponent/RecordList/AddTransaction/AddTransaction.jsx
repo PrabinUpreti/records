@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { recordContext,recordTransactionContext, ACTION } from "../../../../Parent";
 import "./AddTransaction.css"
 import { addTransaction } from "./../../../../Firestore/Firestore"
+import { NotListedLocation } from "@material-ui/icons";
 
 
 
@@ -16,12 +17,16 @@ function AddTransaction() {
   const recordValue = useContext(recordContext);
   const recordTranValue = useContext(recordTransactionContext)
   const [isValid,setIsValid] = useState(true)
+  const [addOrUpdate,setAddOrUpdate] = useState("add")
+  const [updateId,setUpdateId] = useState("")
+
+
 
 
   let { id } = useParams();
 
   function enterTransactionData() {
-    // console.clear();
+    console.clear();
     console.log(inputData)
     if(!isNaN(inputData.amount) && inputData.description.length > 2 && (inputData.status == "debit" || inputData.status == "credit")){
     let tranData ={
@@ -33,11 +38,18 @@ function AddTransaction() {
       status:inputData.status == "debit" ? "dr" : "cr",
       updatedAT:new Date()
     }
+    if(addOrUpdate == "add"){
+      recordTranValue.dispatch({ type: ACTION.ADD_TRANSACTION, payload: tranData })
+    }
+    else if(addOrUpdate == "update"){
+      let finaldata = {data:tranData, id:updateId}
+      recordTranValue.dispatch({ type: ACTION.UPDATE_TRANSACTION, payload: finaldata })
 
-    recordTranValue.dispatch({ type: ACTION.ADD_TRANSACTION, payload: tranData })
+    }
     setInputData({ date: '', description: '', amount: '', status: '' })
     setShowAddTransaction(false)
     setIsValid(true)
+    setAddOrUpdate("add")
     console.log(tranData);
 
   }
@@ -45,34 +57,18 @@ function AddTransaction() {
     setIsValid(false)
   }
   }
-  function updateTransactionData(d) {
-    // console.clear();
+  function handelUpdateTransactionData(d) {
     console.log(d)
-  //   if(!isNaN(inputData.amount) && inputData.description.length > 2 && (inputData.status == "debit" || inputData.status == "credit")){
-  //   let tranData ={
-  //     amount:parseFloat(inputData.amount),
-  //     consumerID:id,
-  //     createdAt:new Date(),
-  //     date:new Date(),
-  //     description:inputData.description,
-  //     status:inputData.status == "debit" ? "dr" : "cr",
-  //     updatedAT:new Date()
-  //   }
-
-    // recordTranValue.dispatch({ type: ACTION., payload: tranData })
+    setAddOrUpdate("update")
     setInputData({ date: d.date, description: d.description, amount: d.amount, status: d.status == "cr" ? "credit" : "debit" })
+    setUpdateId(d.id)
       setShowAddTransaction(true)
-  //   setIsValid(true)
-  //   console.log(tranData);
-
-  // }
-  // else{
-  //   setIsValid(false)
-  // }
   }
 
   function deleteRecord(tranid){
-    recordTranValue.dispatch({ type: ACTION.DELETE_TRANSACTION, payload: tranid })
+    let actionResponse = window.confirm("This action delete the record permanently from database\n Do you really want to delete this")
+    if(actionResponse)
+      recordTranValue.dispatch({ type: ACTION.DELETE_TRANSACTION, payload: tranid })
 
   }
 
@@ -150,8 +146,9 @@ function AddTransaction() {
                         width: "100%",
                         fontSize: "15px",
                         fontWeight: "600",
+                        
                       }}
-                        onClick={()=>enterTransactionData()}>Submit</button>
+                        onClick={()=>enterTransactionData()}>{addOrUpdate.toUpperCase()}</button>
 
 
                     </th>
@@ -183,7 +180,7 @@ function AddTransaction() {
                       <td>Rs. {data.amount} /-</td>
                       <td>{data.status == "dr" ? "Debit" : "Credit"}</td>
                       <td> Rs. {lastamount} /-</td>
-                      <td> <button onClick={() => updateTransactionData(data)}>Edit</button><button onClick={()=>{deleteRecord(data.id)}} >Delete</button></td>
+                      <td> <button onClick={() => handelUpdateTransactionData(data)}>Edit</button><button onClick={()=>{deleteRecord(data.id)}} >Delete</button></td>
 
 
                     </tr>
