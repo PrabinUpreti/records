@@ -2,10 +2,15 @@ import React, { useState, useContext } from "react";
 import { Customers } from "../../../DatabaseServices";
 import { recordContext } from "./../../../Parent"
 import "./AddPerson.css"
+import {useParams} from "react-router-dom"
 
 function Person() {
-  const recordValue = useContext(recordContext)
 
+  let { id } = useParams();
+  console.log(id);
+
+  const recordValue = useContext(recordContext)
+const [isvalid,setIsvalid] = useState(true)
   const [state, setState] = useState({
     name: "",
     address: "",
@@ -19,15 +24,22 @@ function Person() {
   };
   const submitForm = (e) => {
     e.preventDefault();
-    recordValue.dispatch({ type: "add-new-customer", payload: state })
+    if(state.name.length > 2 && state.address.length > 2 && state.phone > 5){
+      recordValue.dispatch({ type: "add-new-customer", payload: state })
+  
+      setState({
+        name: "",
+        address: "",
+        phone: "",
+        description: "",
+        date: ""
+      });
+      setIsvalid(true)
 
-    setState({
-      name: "",
-      address: "",
-      phone: "",
-      description: "",
-      date: ""
-    });
+    }
+    else{
+      setIsvalid(false)
+    }
   };
 
   return (
@@ -65,6 +77,7 @@ function Person() {
           rows="10"
           value={state.description}
         ></textarea>
+        <div style={{display:isvalid ? "none": "inherit"}}><p style={{margin:"2px",color:"red"}}>Please enter form correctly </p></div>
         <input className="submit" value="SUBMIT" type="submit" onClick={submitForm} />
       </form>
     </div>

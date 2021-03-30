@@ -1,5 +1,5 @@
 .main {
-  margin-right: 20px;
+  /* margin-right: 20px; */
   /* height: auto; */
   display: flex;
   width: 100%;
@@ -7,7 +7,7 @@
   padding: 20px;
   margin-top: 5px;
   overflow: auto;
-  flex-wrap: nowrap;
+  /* flex-wrap: wrap; */
   height: calc(100vh - 120px);
 }
 
@@ -39,18 +39,23 @@
 }
 .avatar {
   margin: 16px;
-  width: 140px;
-  height: 140px;
+  /* width: 140px;
+  height: fit-content;
   background-color: #4961ef;
   border-radius: 5px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
 }
-.avatar > p {
+.avatarText {
   font-size: 50px;
   font-weight: bold;
   color: white;
+  background-color: #4961ef;
+  border-radius: 5px;
+  padding: 50px;
+  margin: 0px;
+  margin-block: 0px !important;
 }
 .information > .name {
   font-weight: bold;
@@ -59,11 +64,11 @@
   color: #1f1b1b;
 }
 .information > .address,
-.registeredDate,
-.phone {
+.information > .registeredDate,
+.information > .phone {
   font-weight: lighter;
   font-size: 12px;
-  opacity: 60%;
+  opacity: 0.6;
   margin-top: 4px !important;
   margin-bottom: 4px !important;
   color: #1f1b1b;
@@ -71,4 +76,36 @@
 .information > .description {
   font-size: 14px;
   color: #1f1b1b;
+}
+
+/*                RESPONSIVE                       */
+@media only screen and (max-width: 1080px) {
+  .main {
+    width: calc(100% - 80px);
+  }
+  .Link {
+    width: 100%;
+  }
+  .information > .address,
+  .information > .registeredDate,
+  .information > .phone,
+  .information > .name,
+  .information > .description,
+  .right > p {
+    text-overflow: ellipsis;
+    font-size: 0.8em;
+    margin-block: 0px !important;
+  }
+  .information > .description {
+    margin-block: 2px !important;
+  }
+
+  .avatar {
+    width: auto;
+    height: auto;
+  }
+  .avatarText {
+    padding: 20px;
+    font-size: 30px;
+  }
 }

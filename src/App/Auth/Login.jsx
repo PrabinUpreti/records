@@ -32,24 +32,42 @@ export default function Login() {
         reEnteredPassword: ''
     })
     const [chooseForm, setChooseForm] = useState('login')
+    const [invalid, setinvalid] = useState()
+    const [loginFormValid, setLoginFormValid] = useState(false)
+    const [signUpFormValid, setSignUpFormValid] = useState(false)
+
+    
+    function validForm(){
+    }
     const submitForm = (event) => {
-        event.preventDefault();
-        let u = credentials.username;
-        let p = credentials.password;
-        SignIn(u, p, (signedUP) => {
-            console.log(signedUP);
-        })
+
+    event.preventDefault();
+    let pattern = new RegExp(/^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/)
+    if(pattern.test(credentials.username) && credentials.password.length >= 6){
+            let u = credentials.username;
+            let p = credentials.password;
+            SignIn(u, p, (signedUP) => {
+                console.log(signedUP);
+            })
+    }
     }
     const submitSignupForm = (e) => {
 
         e.preventDefault();
-        let u = signupCredentials.username;
-        let p = signupCredentials.password;
-        console.log(signupCredentials);
-        SignUp(u, p, (signedUP) => {
-            console.log(signedUP);
-        })
-        setChooseForm("login")
+        let pattern = new RegExp(/^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/)
+
+        if(pattern.test(signupCredentials.username) && signupCredentials.password.length >= 6 && signupCredentials.password == signupCredentials.reEnteredPassword){
+
+            let u = signupCredentials.username;
+            let p = signupCredentials.password;
+            console.log(signupCredentials);
+            SignUp(u, p, (signedUP) => {
+                console.log(signedUP);
+            })
+            setChooseForm("login")
+
+        }
+
     }
 
     useEffect(() => {

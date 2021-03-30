@@ -1,5 +1,5 @@
 .nav {
-  background-color: #4961EF;
+  background-color: #4961ef;
   height: 70px;
   width: auto;
   color: #ffffff;
@@ -14,25 +14,30 @@
   padding-right: 20px;
   /* font-size: 34px; */
 }
-.navContent h1, .navContent h2{
+.navContent h1,
+.navContent h2 {
   margin-top: auto !important;
   margin-bottom: auto !important;
 }
 .btn {
-  background-color:#4961EF;
+  background-color: #4961ef;
   border: none;
   cursor: pointer;
   color: #fff;
   font-weight: bold;
   margin: 0px;
-  height:70px;
+  height: 70px;
   font-size: 1rem;
   padding: 0px;
-
-
-
 }
-.btn:focus{
-  outline:0px
+.btn:focus {
+  outline: 0px;
 }
 
+@media only screen and (max-width: 1080px) {
+  .navContent h1,
+  .navContent h2,
+  .btn {
+    font-size: 0.999em;
+  }
+}

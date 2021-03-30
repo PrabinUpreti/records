@@ -37,10 +37,20 @@ export const addNewCustomer = (data) => {
 }
 
 export const addTransaction = (param) => {
-    let firestoreRef = fs.collection("users").doc(userDetails.uid).collection("consumer").doc(param[0]).collection("transaction")
-    firestoreRef.add(param[1])
+    console.log(param,userDetails.uid)
+    let firestoreRef = fs.collection("users").doc(userDetails.uid).collection("transaction")
+    firestoreRef.add(param)
+}
 
-
+export const updateTransaction = (param) =>{
+    console.log(param)
+    let updateRef = fs.collection("users").doc(userDetails.uid).collection("transaction").doc(param.id)
+    updateRef.update(param.data)
+}
+export const deleteTransaction = (id) =>{
+    console.log(id)
+    let deleteRef = fs.collection("users").doc(userDetails.uid).collection("transaction").doc(id)
+    deleteRef.delete()
 }
 
 export default function Firestore() {

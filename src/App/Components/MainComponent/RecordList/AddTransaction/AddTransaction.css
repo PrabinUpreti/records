@@ -1,83 +1,91 @@
-.transactionMain{
-  width:80vw;
-  padding:20px;
+.transactionMain {
+  width: 80vw;
+  padding: 20px;
 }
 .transactionTable {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  .transactionTable > tbody >tr> td, thead > tr >th {
-    text-align: left;
-    padding: 18px;
-  }
-  .transactionTable > thead > tr > th{
-    background-color: #4961EF;
-    color:white;
-  }
-  .transactionTable  > tbody >tr{
-    margin: 2px;
-    /* background-color:#FFFFFF; */
-  }
-  
-  /* tr:nth-child(even) {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.transactionTable > tbody > tr > td,
+thead > tr > th {
+  text-align: left;
+  padding: 18px;
+}
+.transactionTable > thead > tr > th {
+  background-color: #4961ef;
+  color: white;
+}
+.transactionTable > tbody > tr {
+  margin: 2px;
+  /* background-color:#FFFFFF; */
+}
+
+/* tr:nth-child(even) {
     background-color: #dddddd;
   } */
-.customerDetails{
+.customerDetails {
   display: flex;
-  padding-bottom:20px;
+  padding-bottom: 20px;
 }
-.leftPart{
-  display:flex;
-  flex:1;
-  align-items:center;
+.leftPart {
+  display: flex;
+  flex: 1;
+  align-items: center;
 }
-.textAvatar{
-  background-color: #4961EF;
+.textAvatar {
+  background-color: #4961ef;
   height: 150px;
   width: 150px;
-  border-radius: 125px;
+  border-radius: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.textAvatar > p{
+.textAvatar > p {
   font-weight: bold;
-  color:white;
-  font-size:50px
+  color: white;
+  font-size: 50px;
 }
-.rightPart{
+.rightPart {
   display: flex;
-  align-items: center
+  align-items: center;
 }
-.rightPart > button{
+.rightPart > button {
   font-size: 34px;
   font-weight: 500;
   height: 50px;
   width: 50px;
-  border-radius: 25px;
-  background-color:#4961EF;
+  border-radius: 100%;
+  background-color: #4961ef;
   border: 0px;
   cursor: pointer;
-  color: #fff
+  color: #fff;
 }
 /* .rightPart > button:hover{ */
-  /* font-size: 40px; */
-  /* height: 60px; */
-  /* width: 60px; */
-  /* border-radius:30px */
+/* font-size: 40px; */
+/* height: 60px; */
+/* width: 60px; */
+/* border-radius:30px */
 /* } */
-.rightPart > button:focus{
-outline:0px
+.rightPart > button:focus {
+  outline: 0px;
 }
-.customerInfo{
-padding-left: 40px;
+.customerInfo {
+  padding-left: 40px;
 }
-.customerInfo > .name{
-  font-size:34px;
-  margin:5px !important;
+.customerInfo > .name {
+  font-size: 34px;
+  margin: 5px !important;
 }
-.customerInfo > .address{
-  margin:5px !important;
+.customerInfo > .address {
+  margin: 5px !important;
+}
+
+/*                RESPONSIVE                       */
+@media only screen and (max-width: 1080px) {
+  .textAvatar > p {
+    font-size: 2em;
+  }
 }

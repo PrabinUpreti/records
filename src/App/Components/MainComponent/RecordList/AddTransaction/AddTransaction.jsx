@@ -1,32 +1,99 @@
 import React, { useState, useContext, useEffect } from "react";
 import { CustomersTransaction } from "../../../../DatabaseServices";
 import { useParams } from "react-router-dom";
-import { recordContext } from "../../../../Parent";
+import { recordContext,recordTransactionContext, ACTION } from "../../../../Parent";
 import "./AddTransaction.css"
 import { addTransaction } from "./../../../../Firestore/Firestore"
+import { NotListedLocation } from "@material-ui/icons";
+import { MdEdit,MdDelete } from "react-icons/md";
 
 
 
 function AddTransaction() {
-  const [state, setState] = useState({});
+  const [state, setState] = useState();
+  const [profile, setprofile] = useState();
+
   const [showAddTransaction, setShowAddTransaction] = useState(false)
   const [inputData, setInputData] = useState({ date: '', description: '', amount: '', status: '' })
   const recordValue = useContext(recordContext);
+  const recordTranValue = useContext(recordTransactionContext)
+  const [isValid,setIsValid] = useState(true)
+  const [addOrUpdate,setAddOrUpdate] = useState("add")
+  const [updateId,setUpdateId] = useState("")
+
+
+
+
   let { id } = useParams();
 
   function enterTransactionData() {
-    addTransaction([id, inputData])
-    // console.log(inputData.date)
+    console.clear();
+    console.log(inputData)
+    if(!isNaN(inputData.amount) && inputData.description.length > 2 && (inputData.status == "debit" || inputData.status == "credit")){
+    let tranData ={
+      amount:parseFloat(inputData.amount),
+      consumerID:id,
+      createdAt:new Date(),
+      date:new Date(),
+      description:inputData.description,
+      status:inputData.status == "debit" ? "dr" : "cr",
+      updatedAT:new Date()
+    }
+    if(addOrUpdate == "add"){
+      recordTranValue.dispatch({ type: ACTION.ADD_TRANSACTION, payload: tranData })
+    }
+    else if(addOrUpdate == "update"){
+      let finaldata = {data:tranData, id:updateId}
+      recordTranValue.dispatch({ type: ACTION.UPDATE_TRANSACTION, payload: finaldata })
+
+    }
     setInputData({ date: '', description: '', amount: '', status: '' })
+    setShowAddTransaction(false)
+    setIsValid(true)
+    setAddOrUpdate("add")
+    console.log(tranData);
+
+  }
+  else{
+    setIsValid(false)
+  }
+  }
+  function handelUpdateTransactionData(d) {
+    console.log(d)
+    setAddOrUpdate("update")
+    setInputData({ date: d.date, description: d.description, amount: d.amount, status: d.status == "cr" ? "credit" : "debit" })
+    setUpdateId(d.id)
+      setShowAddTransaction(true)
+  }
+
+  function deleteRecord(tranid){
+    let actionResponse = window.confirm("This action delete the record permanently from database\n Do you really want to delete this")
+    if(actionResponse)
+      recordTranValue.dispatch({ type: ACTION.DELETE_TRANSACTION, payload: tranid })
+
   }
 
   useEffect(() => {
-    let newList;
-    let transactionList = recordValue.state.customer.filter(d => {
-      return (d.customerId == id)
+    console.log(recordTranValue);
+
+    if (typeof(recordTranValue.state) != "undefined") {
+      if(recordTranValue.state.transaction){
+    let transactionList=[]
+    recordTranValue.state.transaction.map(d => {
+      if(d.consumerID == id){
+        transactionList = [...transactionList,d]
+      }
     })
+    
     setState(transactionList)
-  }, [recordValue])
+      recordValue.state.customer.map(a=>{
+        if(a.id == id){
+          setprofile(a)
+        }
+    })
+    console.log(transactionList);
+  }}
+  }, [recordValue,recordTranValue])
   let lastamount = 0
 
   return (
@@ -35,17 +102,17 @@ function AddTransaction() {
 
       {
 
-        state.length ?
+        state ?
           <div>
             <div className="customerDetails">
               <div className="leftPart">
                 <div className="textAvatar">
-                  <p>{state[0].name[0]}{state[0].name[1]}</p>
+                  <p>{profile.name[0]}{profile.name[1]}</p>
                 </div>
                 {/* <img src='https://lh3.googleusercontent.com/pw/ACtC-3fuX-Tc4ckD4UTqJM6fpZZ2AB3rDlEIPMQjCcLiUDJIzSGT0LtFyBG5mR5TD6rHOdkmanV__RGGxq50MjCFj2R6jNgDv2XBplhsoAGMTsBxWU4uD7iL80x-_31E2BA4IqC8XZZDEh04YbHpbRJvlJ73Dg=w552-h981-no?authuser=0'></img> */}
                 <div className="customerInfo">
-                  <p className="name">{state[0].name}</p>
-                  <p className="address">{state[0].address}</p>
+                  <p className="name">{profile.name}</p>
+                  <p className="address">{profile.address}</p>
                 </div>
               </div>
               <div className="rightPart">
@@ -57,6 +124,7 @@ function AddTransaction() {
                 <thead>
                   <tr>
                     <th>#</th>
+                    <th>#</th>
                     <th >
                       <input value={inputData.date} onChange={(e) => { setInputData({ ...inputData, date: e.target.value }) }} type="date" placeholder="Date" />
                     </th>
@@ -67,10 +135,10 @@ function AddTransaction() {
                       <input value={inputData.amount} onChange={(e) => { setInputData({ ...inputData, amount: e.target.value }) }} type="text" placeholder="Amount" />
                     </th>
                     <th>
-                      <select value={inputData.status} onChange={(e) => { setInputData({ ...inputData, status: e.target.value == "Debit" ? "dr" : "cr" }) }}  >
+                      <select onChange={(e) => { setInputData({ ...inputData, status: e.target.value}) }}  >
                         <option value="10">Debit/Credit</option>
                         <option value="debit">Debit</option>
-                        <option value="credit">Credit</option>
+                        <option  value="credit">Credit</option>
 
                       </select>
                     </th>
@@ -80,15 +148,16 @@ function AddTransaction() {
                         width: "100%",
                         fontSize: "15px",
                         fontWeight: "600",
+                        
                       }}
-                        onClick={enterTransactionData}>Submit</button>
+                        onClick={()=>enterTransactionData()}>{addOrUpdate.toUpperCase()}</button>
 
 
                     </th>
                   </tr>
+                  <tr style={{display:isValid ? "none":""}}><th colSpan="6" style={{textAlign:"center", padding:"0px", color:"#FE9777"}}>Please enter correctly.</th></tr>
                 </thead>
                 : null}
-
               <thead>
                 <tr>
                   <th>S.N</th>
@@ -97,22 +166,28 @@ function AddTransaction() {
                   <th>Amount</th>
                   <th>Status</th>
                   <th>Last Amount</th>
-                  {/* <th>Action</th> */}
+                  <th>Action</th>
 
                 </tr>
               </thead>
               <tbody>
-                {state[0].transaction.map((data, index) => {
-                  lastamount ? data.transactions.status == "dr" ? lastamount = lastamount - parseFloat(data.transactions.amount) : lastamount = lastamount + parseFloat(data.transactions.amount) : data.transactions.status == "dr" ? lastamount = -parseFloat(data.transactions.amount) : lastamount = parseFloat(data.transactions.amount)
-                  let date = new Date(data.transactions.date.seconds * 1000)
+                {state.map((data, index) => {
+                  lastamount ? data.status == "dr" ? lastamount = lastamount - parseFloat(data.amount) : lastamount = lastamount + parseFloat(data.amount) : data.status == "dr" ? lastamount = -parseFloat(data.amount) : lastamount = parseFloat(data.amount)
+                  let date = new Date(data.date.seconds * 1000)
                   return (
-                    <tr style={{ color: data.transactions.status === "dr" ? "red" : "green" }} key={index}>
+                    <tr style={{ color: data.status === "dr" ? "red" : "green" }} key={index}>
                       <td>{index + 1}</td>
                       <td>{date.toLocaleString('default', { month: 'long' })} {date.getDate()}, {date.getFullYear()}</td>
-                      <td>{data.transactions.description.toUpperCase()}</td>
-                      <td>Rs. {data.transactions.amount} /-</td>
-                      <td>{data.transactions.status == "dr" ? "Debit" : "Credit"}</td>
+                      <td>{data.description.toUpperCase()}</td>
+                      <td>Rs. {data.amount} /-</td>
+                      {/* <td><input type="text" value={`Rs. ${data.amount}`} disabled={true}></input></td> */}
+                      <td>{data.status == "dr" ? "Debit" : "Credit"}</td>
                       <td> Rs. {lastamount} /-</td>
+<<<<<<< HEAD
+=======
+                      <td> <button onClick={() => handelUpdateTransactionData(data)}><MdEdit/></button><button onClick={()=>{deleteRecord(data.id)}} ><MdDelete/></button></td>
+
+>>>>>>> workingOnFirestore
                     </tr>
                   )
                 })}
