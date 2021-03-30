@@ -183,11 +183,10 @@ function AddTransaction() {
                       {/* <td><input type="text" value={`Rs. ${data.amount}`} disabled={true}></input></td> */}
                       <td>{data.status == "dr" ? "Debit" : "Credit"}</td>
                       <td> Rs. {lastamount} /-</td>
-<<<<<<< HEAD
-=======
+
                       <td> <button onClick={() => handelUpdateTransactionData(data)}><MdEdit/></button><button onClick={()=>{deleteRecord(data.id)}} ><MdDelete/></button></td>
 
->>>>>>> workingOnFirestore
+
                     </tr>
                   )
                 })}
