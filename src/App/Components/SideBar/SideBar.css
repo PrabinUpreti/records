@@ -31,7 +31,7 @@
   border: none;
 }
 
-/*                RESPONSIVE                       */
+/*                RESPONSIVE 1200                       */
 @media only screen and (max-width: 1080px) {
   .sidebar {
     width: 100%;
@@ -41,4 +41,8 @@
     border-bottom: 1px solid #1f1b1b50;
     /* display: none; */
   }
+  /* @media only screen and (max-width: 990) {
+}
+@media only screen and (max-width: 768) {
+  } */
 }
